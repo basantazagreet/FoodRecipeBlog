@@ -9,6 +9,8 @@ import android.widget.Button;
 
 public class OnBoardActivity extends AppCompatActivity {
 
+
+    //Make a layout for welcome to this app in this activity.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

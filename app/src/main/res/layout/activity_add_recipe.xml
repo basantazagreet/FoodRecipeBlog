@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".AddRecipeActivity"
+    android:background="#666"
+    >
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:layout_width="match_parent"
+        app:title=" "
+        android:elevation="1dp"
+        android:layout_height="wrap_content">
+
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            android:background="@android:color/transparent"
+            android:layout_marginRight="12dp"
+            android:tint="@color/colorPrimary"
+            android:onClick="cancelPost"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="New Post"
+            android:textColor="@color/colorPrimary"
+            android:textSize="22dp"
+            android:layout_height="wrap_content"/>
+
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:layout_marginTop="6dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:id="@+id/imgAddPost"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Change Photo"
+                android:textSize="15dp"
+                android:layout_marginBottom="20dp"
+                android:textColor="@color/colorPrimary"
+                android:gravity="center_horizontal"
+                android:onClick="changePhoto"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:textSize="15sp"
+                android:id="@+id/txttitle"
+                android:hint="Add Food name here"
+                android:padding="8dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/etfocus"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:textSize="15sp"
+                android:id="@+id/txtorigin"
+                android:hint="Enter Food Origin here"
+                android:padding="8dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/etfocus"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:textSize="15sp"
+                android:id="@+id/txtcategory"
+                android:hint="Enter Food Category here"
+                android:padding="8dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/etfocus"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:textSize="15sp"
+                android:id="@+id/txtreadyin"
+                android:hint="Enter Ready in time here"
+                android:padding="8dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/etfocus"/>
+
+
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="left"
+                android:textSize="15sp"
+                android:id="@+id/txtdesc"
+                android:inputType="textMultiLine"
+                android:hint="Add food description here"
+                android:padding="8dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/etfocus"/>
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:gravity="left"
+                android:textSize="15sp"
+                android:id="@+id/txtingredients"
+                android:inputType="textMultiLine"
+                android:hint="Add food ingredients here"
+                android:padding="8dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/etfocus"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:gravity="left"
+                android:textSize="15sp"
+                android:id="@+id/txtsteps"
+                android:inputType="textMultiLine"
+                android:hint="Enter Preparation steps here"
+                android:padding="8dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/etfocus"/>
+
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:text="Post"
+                android:id="@+id/btnAddPost"
+                android:background="@drawable/button_background"
+                android:textColor="@color/colorWhite"
+                android:layout_marginTop="20dp"
+                android:textSize="17dp"
+                android:textAllCaps="false"/>
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
+    </ScrollView>
+
+
+
+
+
+</LinearLayout>

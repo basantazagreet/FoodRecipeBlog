@@ -11,6 +11,9 @@ import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
+    //MainActivity is the landing activity. Here we add functionalities for first time and others
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

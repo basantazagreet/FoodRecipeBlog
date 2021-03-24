@@ -143,7 +143,7 @@ public class SignInFragment extends Fragment {
                 JSONObject object = new JSONObject(response);
                 if (object.getBoolean("success")){
                     JSONObject user = object.getJSONObject("user");
-                    //make shared preference user
+                    //make shared preference user fragment vara getcontext gareko
                     SharedPreferences userPref = getActivity().getApplicationContext().getSharedPreferences("user",getContext().MODE_PRIVATE);
                     SharedPreferences.Editor editor = userPref.edit();
                     editor.putString("token",object.getString("token"));
