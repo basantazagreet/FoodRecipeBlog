@@ -81,17 +81,28 @@ public class AddRecipeActivity extends AppCompatActivity {
 
         //Yaha problem cha hola
 
-        //Bundle wala code
-        /*Bundle bundle = getIntent().getExtras();
-        String IMG_URL = bundle.getString(HomeActivity.IMAGE_URI);
-        imgPost.setImageURI(Uri.parse(IMG_URL));*/
 
+        //Start bundle
+        /*Bundle bundle = getIntent().getExtras();
+        Uri imgUri = Uri.parse(bundle.getString(HomeActivity.photokourl)) ;
+        imgPost.setImageURI(imgUri);
+        try {
+            bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imgUri);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+        //end bundle
+
+        //Start of intent
         imgPost.setImageURI(getIntent().getData());
         try {
             bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), getIntent().getData());
         } catch (IOException e) {
             e.printStackTrace();
         }
+        //End of intent
+
+
 
         btnPost.setOnClickListener(v -> {
             if (!txttitle.getText().toString().isEmpty() && !txtorigin.getText().toString().isEmpty() &&
@@ -191,7 +202,7 @@ public class AddRecipeActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        //Result ok kata bata aako?
+        //change post gare yo code run huncha ra naya img uri bancha
         if (requestCode == GALLERY_CHANGE_POST && resultCode == RESULT_OK) {
             Uri imgUri = data.getData();
             imgPost.setImageURI(imgUri);

@@ -20,13 +20,31 @@
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Goto Authorization"
-        android:layout_marginHorizontal="50dp"
-        android:onClick="gotoAuthorization"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:background="@drawable/button_background"
+        android:text="Log out"
+        android:id="@+id/btlogout"
+        android:textColor="@color/colorWhite"
+        android:textAllCaps="false"
+        android:layout_marginBottom="16dp"
+        android:layout_height="40dp"
+        android:onClick="logout"
         />
 
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:background="@drawable/button_background"
+        android:text="Goto Auth"
+        android:textColor="@color/colorWhite"
+        android:textAllCaps="false"
+        android:layout_marginBottom="16dp"
+        android:layout_height="40dp"
+        android:id="@+id/btauth"
+        />
 
 
 

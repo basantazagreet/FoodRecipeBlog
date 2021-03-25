@@ -28,8 +28,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:text="New Post"
+            android:fontFamily="cursive"
             android:textColor="@color/colorPrimary"
-            android:textSize="22dp"
+            android:textSize="20sp"
             android:layout_height="wrap_content"/>
 
 

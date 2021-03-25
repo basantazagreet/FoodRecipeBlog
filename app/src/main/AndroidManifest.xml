@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodRecipeBlog"
         android:usesCleartextTraffic="true">
+        <activity android:name=".EditUserInfoActivity" />
         <activity android:name=".OnBoardActivity" />
+        <activity android:name=".AddRecipeActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".UserInfoActivity" />
         <activity android:name=".AuthActivity" />
