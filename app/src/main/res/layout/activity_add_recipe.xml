@@ -13,7 +13,9 @@
         android:layout_width="match_parent"
         app:title=" "
         android:elevation="1dp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+
+        >
 
 
         <ImageButton
@@ -25,14 +27,14 @@
             android:onClick="cancelPost"
             android:layout_height="wrap_content"/>
 
+
         <TextView
             android:layout_width="wrap_content"
-            android:text="New Post"
-            android:fontFamily="cursive"
             android:textColor="@color/colorPrimary"
             android:textSize="20sp"
+            android:text="Post a new recipe"
+            android:fontFamily="cursive"
             android:layout_height="wrap_content"/>
-
 
     </com.google.android.material.appbar.MaterialToolbar>
 

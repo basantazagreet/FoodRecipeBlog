@@ -1,39 +1,25 @@
 package com.example.foodrecipeblog;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.Uri;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
-
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.foodrecipeblog.Fragments.AccountFragment;
 import com.example.foodrecipeblog.Fragments.FavouritesFragment;
 import com.example.foodrecipeblog.Fragments.HomeFragment;
 import com.example.foodrecipeblog.Fragments.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import static java.security.AccessController.getContext;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -48,28 +34,25 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        //Buttom nav ma 4 wata fragments linked cha
+
+        //4 items are listed in Buttomnav
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
-
-        //I added this if statement to keep the selected fragment when rotating the device,
         //Suru ma landing fragment ho Homefragment
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frameHomeContainer,
                     new HomeFragment()).commit();
         }
-
         init();
-
-
     }
 
-    //onCreate() mai cha item selected listener ko object passed
+    //navlisteners are listed inside oncreate method
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
                     Fragment selectedFragment = null;
                     switch (item.getItemId()) {
                         case R.id.item_home:
@@ -85,7 +68,7 @@ public class HomeActivity extends AppCompatActivity {
                             selectedFragment = new AccountFragment();
                             break;
                     }
-                    //Frame homecontainer vaneko fragment dekhine view ho
+                    //Frame homecontainer is where fragments are replaced
                     getSupportFragmentManager().beginTransaction().replace(R.id.frameHomeContainer,
                             selectedFragment).commit();
                     return true;
@@ -93,18 +76,28 @@ public class HomeActivity extends AppCompatActivity {
             };
 
 
-    //when Plus(Floating actionbar) is clicked, user is redirected to the smartphone gallery
+    //when Plus(Floating actionbar) is clicked, user is redirected to the smartphone gallery if isLoggedIn
     private void init() {
         fab = findViewById(R.id.fab);
         fab.setOnClickListener(v -> {
-            Intent i = new Intent(Intent.ACTION_PICK);
-            i.setType("image/*");
-            startActivityForResult(i, GALLERY_ADD_POST);
+
+            SharedPreferences userPref = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
+            boolean isLoggedIn = userPref.getBoolean("isLoggedIn", false);
+
+            if (isLoggedIn) {
+                Intent i = new Intent(Intent.ACTION_PICK);
+                i.setType("image/*");
+                startActivityForResult(i, GALLERY_ADD_POST);
+            } else {
+                Intent i = new Intent(HomeActivity.this, AuthActivity.class);
+                Toast.makeText(getApplicationContext(), "Please login to upload recipe", Toast.LENGTH_LONG).show();
+                startActivity(i);
+
+            }
         });
-
-
     }
 
+    //when add recipe is clicked, we need to send img uri data through intent to next activity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -120,5 +113,27 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
+    //profile ma jada signin garna paros
+    /*private BottomNavigationView.OnNavigationItemSelectedListener navListener2 =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+                    if (item.getItemId() == R.id.item_account) {
+                        SharedPreferences userPref = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
+                        boolean isLoggedIn = userPref.getBoolean("isLoggedIn", false);
+                        if (isLoggedIn) {
+                            getSupportFragmentManager().beginTransaction().replace(R.id.frameHomeContainer,
+                                    new AccountFragment()).commit();
+                        } else {
+                            Intent i = new Intent(HomeActivity.this, AuthActivity.class);
+                            Toast.makeText(getApplicationContext(), "Please signup first", Toast.LENGTH_LONG).show();
+                            startActivity(i);
+
+                        }
+
+                    }
+                    return true;
+                }
+            };*/
 }

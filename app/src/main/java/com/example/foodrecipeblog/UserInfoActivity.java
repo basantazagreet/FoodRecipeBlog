@@ -1,9 +1,6 @@
 package com.example.foodrecipeblog;
 
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +12,10 @@ import android.provider.MediaStore;
 import android.util.Base64;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -127,6 +128,7 @@ public class UserInfoActivity extends AppCompatActivity {
             try {
                 JSONObject object = new JSONObject(response);
                 if (object.getBoolean("success")) {
+                    Toast.makeText(this, "User info updated", Toast.LENGTH_SHORT).show();
                     SharedPreferences.Editor editor = userPref.edit();
                     editor.putString("photo", object.getString("photo"));
                     editor.apply();
@@ -135,6 +137,7 @@ public class UserInfoActivity extends AppCompatActivity {
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
+                Toast.makeText(this, "Error updating " + e, Toast.LENGTH_SHORT).show();
             }
 
             dialog.dismiss();
@@ -142,11 +145,10 @@ public class UserInfoActivity extends AppCompatActivity {
         }, error -> {
             error.printStackTrace();
             dialog.dismiss();
+            Toast.makeText(this, "Unexpected error " + error, Toast.LENGTH_SHORT).show();
         }) {
 
             //add token to headers
-
-
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 String token = userPref.getString("token", "");
@@ -156,7 +158,6 @@ public class UserInfoActivity extends AppCompatActivity {
             }
 
             //add params
-
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String, String> map = new HashMap<>();

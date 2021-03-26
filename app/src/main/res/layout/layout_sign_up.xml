@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Food Recipe"
+        android:text="Food Recipe Sign up"
         android:textSize="32sp"
         android:fontFamily= "cursive"
         android:textColor="@color/colorPrimary"

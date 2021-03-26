@@ -51,6 +51,7 @@
                 android:textSize="16sp"
                 android:textColor="@color/colorPrimary"
                 android:text="My name"
+                android:paddingLeft="10dp"
                 android:textStyle="bold"
                 android:id="@+id/txtAccountName"
                 android:layout_height="wrap_content"/>

@@ -1,9 +1,6 @@
 package com.example.foodrecipeblog;
 
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -19,15 +16,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.foodrecipeblog.Fragments.HomeFragment;
-
-//import com.habib.blogapp.Models.Post;
-//import com.habib.blogapp.Models.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,6 +32,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+//import com.habib.blogapp.Models.Post;
+//import com.habib.blogapp.Models.User;
 
 public class AddRecipeActivity extends AppCompatActivity {
     private Button btnPost;
@@ -103,7 +102,6 @@ public class AddRecipeActivity extends AppCompatActivity {
         //End of intent
 
 
-
         btnPost.setOnClickListener(v -> {
             if (!txttitle.getText().toString().isEmpty() && !txtorigin.getText().toString().isEmpty() &&
                     !txtdesc.getText().toString().isEmpty() && !txtcategory.getText().toString().isEmpty()
@@ -135,12 +133,14 @@ public class AddRecipeActivity extends AppCompatActivity {
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
+                Toast.makeText(this, "Error " + e, Toast.LENGTH_SHORT).show();
             }
             dialog.dismiss();
 
         }, error -> {
             error.printStackTrace();
             dialog.dismiss();
+            Toast.makeText(this, "Unexpected error " + error, Toast.LENGTH_SHORT).show();
         }) {
 
             // add token to header
@@ -202,7 +202,7 @@ public class AddRecipeActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        //change post gare yo code run huncha ra naya img uri bancha
+        //Image Uri data transfer during change post
         if (requestCode == GALLERY_CHANGE_POST && resultCode == RESULT_OK) {
             Uri imgUri = data.getData();
             imgPost.setImageURI(imgUri);
