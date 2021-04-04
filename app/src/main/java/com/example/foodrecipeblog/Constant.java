@@ -9,6 +9,7 @@ public class Constant {
     public static final String LOGOUT = HOME+"/logout";
     public static final String REGISTER = HOME+"/register";
     public static final String SAVE_USER_INFO = HOME+"/save_user_info";
+    public static final String GET_A_RECIPE = HOME+"/getrecipe/";
 
     public static final String RECIPES = HOME+"/recipes";
     public static final String ADD_RECIPE = RECIPES+"/create";

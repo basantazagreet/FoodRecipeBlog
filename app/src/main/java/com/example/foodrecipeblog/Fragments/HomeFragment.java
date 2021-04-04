@@ -22,6 +22,7 @@ import com.example.foodrecipeblog.AuthActivity;
 import com.example.foodrecipeblog.Constant;
 import com.example.foodrecipeblog.HomeActivity;
 import com.example.foodrecipeblog.R;
+import com.example.foodrecipeblog.SeeRecipeActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,24 +33,29 @@ import java.util.Map;
 public class HomeFragment extends Fragment {
 
     private SharedPreferences preferences;
+    Button btseerecipe;
+    int rid =1;
 
-    Button btlogout;
-    Button btauth;
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        btlogout = view.findViewById(R.id.btlogout);
-        btlogout.setOnClickListener(v -> {
-            logout();
-        });
+        btseerecipe = view.findViewById(R.id.btrecipe);
 
-        btauth = view.findViewById(R.id.btauth);
-        btauth.setOnClickListener(v -> {
-            gotoAuth();
-        });
+    btseerecipe.setOnClickListener(v -> {
+        //validate fields first
+        Intent i = new Intent(((HomeActivity) getContext()), SeeRecipeActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("id", String.valueOf(rid));
+        i.putExtras(bundle);
+
+        startActivity(i);
+    });
+
+
         return view;
     }
 
@@ -103,5 +109,9 @@ public class HomeFragment extends Fragment {
         Intent i = new Intent(((HomeActivity) getContext()), AuthActivity.class);
         startActivity(i);
     }
+
+
+
+
 
 }

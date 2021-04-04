@@ -182,8 +182,7 @@ public class AccountFragment extends Fragment {
     }
 
     private void logout() {
-        dialog.setMessage("Signing out..");
-        dialog.show();
+
         StringRequest request = new StringRequest(Request.Method.GET, Constant.LOGOUT, res -> {
 
             try {
@@ -198,25 +197,15 @@ public class AccountFragment extends Fragment {
                     startActivity(new Intent(((HomeActivity) getContext()), AuthActivity.class));
                     ((HomeActivity) getContext()).finish();
 
-                } else if (object.getBoolean("success") == false) {
-                    Toast.makeText(getActivity(), object.getString("message"), Toast.LENGTH_SHORT).show();
-                    //Token expire vaye pani shp data clear gardim ta
 
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.clear();
-                    editor.apply();
-                    startActivity(new Intent(((HomeActivity) getContext()), AuthActivity.class));
-                    ((HomeActivity) getContext()).finish();
+
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            dialog.dismiss();
-
 
         }, error -> {
             error.printStackTrace();
-            dialog.dismiss();
         }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {

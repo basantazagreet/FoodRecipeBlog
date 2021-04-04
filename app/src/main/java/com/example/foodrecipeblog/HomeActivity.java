@@ -44,6 +44,7 @@ public class HomeActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction().replace(R.id.frameHomeContainer,
                     new HomeFragment()).commit();
         }
+        //init bata cha floating actionbar
         init();
     }
 
@@ -108,6 +109,7 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(i);
         }
     }
+
 
 
 
