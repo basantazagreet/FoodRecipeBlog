@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SeeRecipeActivity"
+    android:orientation="vertical"
+    >
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:layout_width="match_parent"
+        app:title=" "
+        android:elevation="1dp"
+        android:layout_height="wrap_content"
+        >
+
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            android:background="@android:color/transparent"
+            android:layout_marginRight="12dp"
+            android:tint="@color/colorPrimary"
+            android:onClick="goBack"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            android:text="View Recipe"
+            android:fontFamily="cursive"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
+
+
+
+
+    <ScrollView
+        android:id="@+id/svfood"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/ivfood"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:scaleType="fitXY"
+                />
+
+            <TextView
+                android:id="@+id/tvtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Fetch Title here"
+                android:textColor="@color/colorPrimary"
+                android:textSize="30dp"
+                android:textStyle="bold" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="25dp"
+                    android:text="Ready in:"
+                    android:textColor="#000"
+                    android:textSize="30dp" />
+
+                <TextView
+                    android:id="@+id/tvreadyin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="25dp"
+                    android:text="Fetch reaady in time here"
+                    android:textColor="#000"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="25dp"
+                    android:text="Minutes"
+                    android:textColor="#000"
+                    android:textSize="20dp" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="25dp"
+                    android:text="Food origin:"
+                    android:textColor="#000"
+                    android:textSize="23dp" />
+
+                <TextView
+                    android:id="@+id/tvorigin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="25dp"
+                    android:text="Fetch Food origin here"
+                    android:textColor="#000"
+                    android:textSize="23dp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="25dp"
+                android:text="Food Description:"
+                android:textColor="#000"
+                android:textSize="20dp" />
+
+
+            <TextView
+                android:id="@+id/tvdescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="25dp"
+                android:background="#f2f2f2"
+                android:padding="8dp"
+                android:text="Fetch Food Description here"
+                android:textColor="#000"
+                android:textSize="15dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="25dp"
+                android:text="Ingredients:"
+                android:textColor="#000"
+                android:textSize="20dp" />
+
+
+            <TextView
+                android:id="@+id/tvingredients"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="25dp"
+                android:background="#f2f2f2"
+                android:padding="8dp"
+                android:text="Fetch Ingredients here"
+                android:textColor="#000"
+                android:textSize="15dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="25dp"
+                android:text="Preparation steps:"
+                android:textColor="#000"
+                android:textSize="20dp" />
+
+
+            <TextView
+                android:id="@+id/tvsteps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="25dp"
+                android:background="#f2f2f2"
+                android:padding="8dp"
+                android:text="Fetch preparation steps here"
+                android:textColor="#000"
+                android:textSize="15dp" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
+
+
+
+
