@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -34,8 +35,9 @@ public class HomeFragment extends Fragment {
 
     private SharedPreferences preferences;
     Button btseerecipe;
-    int rid =1;
 
+
+    int rid = 8;
 
 
     @Nullable
@@ -45,15 +47,17 @@ public class HomeFragment extends Fragment {
 
         btseerecipe = view.findViewById(R.id.btrecipe);
 
-    btseerecipe.setOnClickListener(v -> {
-        //validate fields first
-        Intent i = new Intent(((HomeActivity) getContext()), SeeRecipeActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putString("id", String.valueOf(rid));
-        i.putExtras(bundle);
 
-        startActivity(i);
-    });
+        btseerecipe.setOnClickListener(v -> {
+            //validate fields first
+            Intent i = new Intent(((HomeActivity) getContext()), SeeRecipeActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("id", String.valueOf(rid));
+            i.putExtras(bundle);
+
+            startActivity(i);
+
+        });
 
 
         return view;
@@ -109,9 +113,5 @@ public class HomeFragment extends Fragment {
         Intent i = new Intent(((HomeActivity) getContext()), AuthActivity.class);
         startActivity(i);
     }
-
-
-
-
 
 }

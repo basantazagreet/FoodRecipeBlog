@@ -25,7 +25,6 @@
     </com.google.android.material.appbar.MaterialToolbar>
 
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
@@ -101,6 +100,13 @@
         android:id="@+id/btnEditAccount"
         android:layout_marginBottom="16dp"
         android:layout_height="40dp"/>
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:id="@+id/recyclerAccount"
+        android:layout_height="wrap_content"/>
 
 
 

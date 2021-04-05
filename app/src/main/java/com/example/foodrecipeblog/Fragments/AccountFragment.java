@@ -21,25 +21,31 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.foodrecipeblog.Adapter.AccountPostAdapter;
 import com.example.foodrecipeblog.AuthActivity;
 import com.example.foodrecipeblog.Constant;
 import com.example.foodrecipeblog.EditUserInfoActivity;
 import com.example.foodrecipeblog.HomeActivity;
+import com.example.foodrecipeblog.Model.Recipe;
 import com.example.foodrecipeblog.R;
 import com.example.foodrecipeblog.UserInfoActivity;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,11 +53,15 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AccountFragment extends Fragment {
 
+    private View view;
     private MaterialToolbar toolbar;
     private CircleImageView imgProfile;
     private TextView txtName, txtPostsCount;
     private Button btnEditAccount;
     private ProgressDialog dialog;
+    private RecyclerView recyclerView;
+    private ArrayList<Recipe> arrayList;
+    private AccountPostAdapter adapter;
 
 
     private SharedPreferences preferences;
@@ -65,22 +75,23 @@ public class AccountFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_account, container, false);
-        toolbar = v.findViewById(R.id.toolbarAccount);
-        imgProfile = v.findViewById(R.id.imgAccountProfile);
-        txtName = v.findViewById(R.id.txtAccountName);
-        txtPostsCount = v.findViewById(R.id.txtAccountPostCount);
-        btnEditAccount = v.findViewById(R.id.btnEditAccount);
+        view = inflater.inflate(R.layout.fragment_account, container, false);
         init();
-        return v;
+        return view;
     }
 
     private void init() {
-        preferences = getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
-
-        //Yaha hola problem fragment ko kei save nagarera ho ki?
-        ((HomeActivity) getContext()).setSupportActionBar(toolbar);
+        preferences = getContext().getSharedPreferences("user",Context.MODE_PRIVATE);
+        toolbar = view.findViewById(R.id.toolbarAccount);
+        ((HomeActivity)getContext()).setSupportActionBar(toolbar);
         setHasOptionsMenu(true);
+        imgProfile = view.findViewById(R.id.imgAccountProfile);
+        txtName = view.findViewById(R.id.txtAccountName);
+        txtPostsCount = view.findViewById(R.id.txtAccountPostCount);
+        recyclerView = view.findViewById(R.id.recyclerAccount);
+        btnEditAccount = view.findViewById(R.id.btnEditAccount);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
 
 
         btnEditAccount.setOnClickListener(v -> {
@@ -112,17 +123,30 @@ public class AccountFragment extends Fragment {
     }
 
     private void getData() {
+        arrayList = new ArrayList<>();
 
-
-        StringRequest request = new StringRequest(Request.Method.GET, Constant.PROFILE, res -> {
+        StringRequest request = new StringRequest(Request.Method.GET, Constant.MY_RECIPES, res -> {
             try {
                 JSONObject object = new JSONObject(res);
                 if (object.getBoolean("success")) {
 
+                    JSONArray recipes = object.getJSONArray("recipes");
+
+                    for (int i = 0; i < recipes.length(); i++) {
+                        JSONObject p = recipes.getJSONObject(i);
+
+                        Recipe recipe  = new Recipe();
+                        recipe.setPhoto(Constant.URL+"storage/recipes/"+p.getString("photo"));
+                        arrayList.add(recipe);
+
+                    }
                     JSONObject user = object.getJSONObject("user");
-                    txtName.setText(user.getString("name") + " " + user.getString("lastname"));
-                    Picasso.get().load(Constant.URL + "storage/profiles/" + user.getString("photo")).into(imgProfile);
-                    imgUrl = Constant.URL + "storage/profiles/" + user.getString("photo");
+                    txtName.setText(user.getString("name")+" "+user.getString("lastname"));
+                    txtPostsCount.setText(arrayList.size()+"");
+                    Picasso.get().load(Constant.URL+"storage/profiles/"+user.getString("photo")).into(imgProfile);
+                    adapter = new AccountPostAdapter(getContext(),arrayList);
+                    recyclerView.setAdapter(adapter);
+                    imgUrl = Constant.URL+"storage/profiles/"+user.getString("photo");
                 } else {
                     Toast.makeText(getActivity(), "Failed to load data", Toast.LENGTH_SHORT).show();
                 }
@@ -183,35 +207,30 @@ public class AccountFragment extends Fragment {
 
     private void logout() {
 
-        StringRequest request = new StringRequest(Request.Method.GET, Constant.LOGOUT, res -> {
+        StringRequest request = new StringRequest(Request.Method.GET,Constant.LOGOUT,res->{
 
             try {
                 JSONObject object = new JSONObject(res);
-                if (object.getBoolean("success")) {
-
-                    //init ma cha preferences.
-                    Toast.makeText(getActivity(), "Logout successs", Toast.LENGTH_SHORT).show();
+                if (object.getBoolean("success")){
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.clear();
                     editor.apply();
-                    startActivity(new Intent(((HomeActivity) getContext()), AuthActivity.class));
-                    ((HomeActivity) getContext()).finish();
-
-
-
+                    startActivity(new Intent(((HomeActivity)getContext()), AuthActivity.class));
+                    ((HomeActivity)getContext()).finish();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
-        }, error -> {
+
+        },error -> {
             error.printStackTrace();
-        }) {
+        }){
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                String token = preferences.getString("token", "");
-                HashMap<String, String> map = new HashMap<>();
-                map.put("Authorization", "Bearer " + token);
+                String token = preferences.getString("token","");
+                HashMap<String,String> map = new HashMap<>();
+                map.put("Authorization","Bearer "+token);
                 return map;
             }
         };
@@ -222,6 +241,19 @@ public class AccountFragment extends Fragment {
 
 
     //on hidden change wala method cha refresh garna
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+
+        if (!hidden){
+            getData();
+        }
+
+        super.onHiddenChanged(hidden);
+    }
+
+
+
     @Override
     public void onResume() {
         super.onResume();

@@ -37,30 +37,11 @@ public class SeeRecipeActivity extends AppCompatActivity {
     ProgressDialog dialog;
 
 
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_see_recipe);
-        init();
 
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        if(dialog == null)
-            dialog = new ProgressDialog(this);
-        dialog.setCancelable(false);
-        getRecipe();
-
-    }
-
-    public void init(){
         ivfood = findViewById(R.id.ivfood);
         tvtitle = findViewById(R.id.tvtitle);
         tvreadyin = findViewById(R.id.tvreadyin);
@@ -71,12 +52,38 @@ public class SeeRecipeActivity extends AppCompatActivity {
         dialog = new ProgressDialog(this);
         dialog.setCancelable(false);
 
-        resetTextviews();
-
         getRecipe();
+
+
+
     }
 
-    public void getRecipe(){
+
+    @Override
+    protected void onResume() {
+       if(dialog.isShowing()){
+           dialog.dismiss();
+       }
+
+        super.onResume();
+       getRecipe();
+    }
+
+    /*public void init() {
+        ivfood = findViewById(R.id.ivfood);
+        tvtitle = findViewById(R.id.tvtitle);
+        tvreadyin = findViewById(R.id.tvreadyin);
+        tvorigin = findViewById(R.id.tvorigin);
+        tvdescription = findViewById(R.id.tvdescription);
+        tvingredients = findViewById(R.id.tvingredients);
+        tvsteps = findViewById(R.id.tvsteps);
+        dialog = new ProgressDialog(this);
+        dialog.setCancelable(false);
+
+        getRecipe();
+    }*/
+
+    public void getRecipe() {
         dialog.setMessage("Getting recipe");
         dialog.show();
 
@@ -84,11 +91,12 @@ public class SeeRecipeActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         String recipeid = bundle.getString("id");
 
-        StringRequest request = new StringRequest(Request.Method.GET, Constant.GET_A_RECIPE+recipeid, response -> {
+
+        StringRequest request = new StringRequest(Request.Method.GET, Constant.GET_A_RECIPE + recipeid, response -> {
             //we get response if connection success
             try {
                 JSONObject object = new JSONObject(response);
-                if (object.getBoolean("success")){
+                if (object.getBoolean("success")) {
 
                     JSONObject recipe = object.getJSONObject("recipe");
 
@@ -100,7 +108,7 @@ public class SeeRecipeActivity extends AppCompatActivity {
                     tvorigin.setText(recipe.getString("origin"));
 
 
-                    Picasso.get().load(Constant.URL+"storage/recipes/"+recipe.getString("photo")).into(ivfood);
+                    Picasso.get().load(Constant.URL + "storage/recipes/" + recipe.getString("photo")).into(ivfood);
 
                     JSONObject user = object.getJSONObject("user");
 
@@ -111,11 +119,11 @@ public class SeeRecipeActivity extends AppCompatActivity {
             }
             dialog.dismiss();
 
-        },error -> {
+        }, error -> {
             // error if connection not success
             error.printStackTrace();
             dialog.dismiss();
-        }){
+        }) {
 
             // add parameters, if not leave blank
 
@@ -126,21 +134,7 @@ public class SeeRecipeActivity extends AppCompatActivity {
         queue.add(request);
     }
 
-
-    public void resetTextviews(){
-
-        tvtitle.setText("");
-        tvdescription.setText("");
-        tvingredients.setText("");
-        tvsteps.setText("");
-        tvreadyin.setText("");
-        tvorigin.setText("");
-        ivfood.setImageURI(Uri.parse(""));
-
-
-    }
-
-    public void goBack(View view){
+    public void goBack(View view) {
         super.onBackPressed();
     }
 
