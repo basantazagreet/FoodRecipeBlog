@@ -14,7 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +35,6 @@ import com.example.foodrecipeblog.EditUserInfoActivity;
 import com.example.foodrecipeblog.HomeActivity;
 import com.example.foodrecipeblog.Model.Recipe;
 import com.example.foodrecipeblog.R;
-import com.example.foodrecipeblog.UserInfoActivity;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;

@@ -14,16 +14,15 @@ public class Constant {
     public static final String ADD_RECIPE = RECIPES+"/create";
     public static final String MY_RECIPES = RECIPES+"/myrecipes";
 
-
-
-
+    public static final String COMMENTS = RECIPES+"/comments";
+    public static final String CREATE_COMMENT = HOME+"/comments/create";
+    public static final String DELETE_COMMENT = HOME+"/comments/delete";
 
     public static final String UPDATE_RECIPE = RECIPES+"/update";
     public static final String DELETE_RECIPE = RECIPES+"/delete";
     public static final String LIKE_RECIPE = RECIPES+"/like";
-    public static final String COMMENTS = RECIPES+"/comments";
-    public static final String CREATE_COMMENT = HOME+"/comments/create";
-    public static final String DELETE_COMMENT = HOME+"/comments/delete";
+
+
 
 
 }
